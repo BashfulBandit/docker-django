@@ -16,7 +16,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* **Davis Templeton** - *Initial work*
+* **[Davis Templeton](https://github.com/BashfulBandit)** - *Initial work*
 
 ## License
 
