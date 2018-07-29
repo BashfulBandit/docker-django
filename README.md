@@ -6,9 +6,7 @@ This is a simple setup for building a Django Project in a Docker Image.
 
 What things you need to install the software and how to install them
 
-```
 [Docker](https://www.docker.com/)
-```
 
 The image was built on Docker 18.06-ce.
 
