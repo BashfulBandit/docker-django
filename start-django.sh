@@ -7,5 +7,8 @@ echo "Running makemigrations and migrate..."
 python3 manage.py makemigrations
 python3 manage.py migrate
 
+echo "Collecting static files into STATIC_ROOT..."
+python3 manage.py collectstatic --noinput
+
 echo "Starting DJANGO..."
-python3 manage.py runserver 0.0.0.0:80
+gunicorn website.wsgi:application -b 0.0.0.0:8000

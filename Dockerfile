@@ -13,6 +13,6 @@ WORKDIR /project/
 
 COPY ./project/ /project/
 
-EXPOSE 80
+EXPOSE 8000
 
 CMD ["/start-django.sh"]

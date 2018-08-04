@@ -20,13 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&(clc_8tj)vn5a@p18_(flmt4&=7szspp*^lw0!o=^h2d%e8=e'
+SECRET_KEY = os.getenv('SECRET_KEY', '&(clc_8tj)vn5a@p18_(flmt4&=7szspp*^lw0!o=^h2d%e8=e')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    os.getenv('HOST', 'localhost'),
+    os.getenv('HOST', '*'),
 ]
 
 
@@ -56,7 +56,9 @@ ROOT_URLCONF = 'website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,8 +79,6 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': os.getenv('SQL_ENGINE', 'django.db.backends.sqlite3'),
         'NAME': os.getenv('MYSQL_DATABASE', 'db.sqlite3'),
         'USER': os.getenv('MYSQL_USER', 'django-user'),
@@ -126,3 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
