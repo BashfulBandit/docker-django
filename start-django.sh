@@ -11,4 +11,7 @@ echo "Collecting static files into STATIC_ROOT..."
 python3 manage.py collectstatic --noinput
 
 echo "Starting DJANGO..."
-gunicorn website.wsgi:application -b 0.0.0.0:8000
+gunicorn \
+  -b 0.0.0.0:8000 \
+  --access-logfile - \
+  website.wsgi:application
