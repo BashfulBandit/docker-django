@@ -15,4 +15,5 @@ gunicorn \
   -b 0.0.0.0:8000 \
   --access-logfile - \
   --log-level debug \
+  --reload \
   website.wsgi:application
