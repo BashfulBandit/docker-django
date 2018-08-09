@@ -98,13 +98,19 @@ This environment variable is used to set the Django PASSWORD variable for the
 default Database in the DATABASES array. It has a default value of `password`,
 but it shouldn't be used in a production environment.
 
+https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
 ## `MYSQL_HOST`
 
 This environment variable is used to set the Django HOST variable for the default
 Database in the DATABASES array. It has a default value of `localhost`.
 
+https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
 ## `MYSQL_PORT`
 This environment variable is used to set the Django PORT variable for the default
 Database in the DATABASES array. It has a default value of `3306`.
+
+https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 #
