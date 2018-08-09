@@ -82,7 +82,7 @@ DATABASES = {
     'default': {
         'ENGINE': os.getenv('SQL_ENGINE', 'django.db.backends.sqlite3'),
         'NAME': os.getenv('MYSQL_DATABASE', 'db.sqlite3'),
-        'USER': os.getenv('MYSQL_USER', 'django-user'),
+        'USER': os.getenv('MYSQL_USER', 'django'),
         'PASSWORD': os.getenv('MYSQL_PASSWORD', 'password'),
         'HOST': os.getenv('MYSQL_HOST', 'localhost'),
         'PORT': os.getenv('MYSQL_PORT', '3306'),

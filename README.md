@@ -1,29 +1,110 @@
 # docker-django
 
-This is a simple setup for building a Django Project in a Docker Image.
+Docker image for a Django website using Gunicorn.
 
-### Prerequisites
+# What is Django?
 
-What things you need to install the software and how to install them
+Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
 
-[Docker](https://www.docker.com/)
+> <a href="https://en.wikipedia.org/wiki/Django_(web_framework)">Django Wikipedia</a>
 
-The image was built on Docker 18.06-ce.
+# How to use this image
 
-## Deployment
+## Hosting the default Django project
 
-Add additional notes about how to deploy this on a live system
+```console
+$ docker run --name some-django -d dtempleton/django
+```
 
-## Authors
+## Exposing external port
 
-* **[Davis Templeton](https://github.com/BashfulBandit)** - *Initial work*
+```console
+$ docker run --name some-django -d -p 8080:8000 dtempleton/django
+```
 
-## License
+Then you can hit `http://localhost:8080` or `http://host-ip:8080` in your browser.
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE.md](LICENSE.md) file for details
+## Building a Django website
 
-## Acknowledgments
+This image has the base Django project created by running `django-admin startproject /website`
+with a few added configuration in the settings.py based on some environment variables.
+See the list of Environment Variables below. Since it has a specific settings.py
+file, it is recommended to use `docker cp some-django:/website .` to retrieve
+the Django files from the image to develop with by mounting a host directory
+to your Docker container.
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+Once you have a copy of the Docker container /website directory on your host, you
+can begin using the image with more complex configuration, but the basic would:
+
+```console
+$ docker run --name some-django -v /path/to/host/website:/website -p 8080:8000 dtempleton/django
+```
+
+# Environment Variables
+
+When you start the dtempleton/django image, you can adjust the configuration
+of Django by passing one or more environment variable to `docker run`
+
+## `DEBUG`
+
+This environment variable is used to set the Django DEBUG variable. It has a
+default value of `True`.
+
+https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-DEBUG
+
+## `HOST`
+
+This environment variable is used to set the Django ALLOWED_HOSTS array. It has
+a default value of `*`.
+
+https://docs.djangoproject.com/en/2.1/ref/settings/#allowed-hosts
+
+## `SECRET_KEY`
+
+This environment variable is used to set the Django SECRET_KEY variable. It has a
+default value, but it shouldn't be used in a production environment. See below for
+more information.
+
+https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-SECRET_KEY
+
+NOTE: It is not recommended to leave the Django SECRET_KEY variable to the one included
+in the Docker image. Specially in a production environment. I use [django-secret-key](https://github.com/ariestiyansyah/django-secret-key) to
+generate a new SECRET_KEY.
+
+## `SQL_ENGINE`
+
+This environment variable is used to set the Django ENGINE variable for the default
+Database in the DATABASES array. It has a default value of `django.db.backends.sqlite3`.
+
+https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+## `MYSQL_DATABASE`
+
+This environment variable is used to set the Django NAME variable for the default
+Database in the DATABASES array. It has a default value of `db.sqlite3`.
+
+https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+## `MYSQL_USER`
+
+This environment variable is used to set the Django USER variable for the default
+Database in the DATABASES array. It has a default value of `django`.
+
+https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+## `MYSQL_PASSWORD`
+
+This environment variable is used to set the Django PASSWORD variable for the
+default Database in the DATABASES array. It has a default value of `password`,
+but it shouldn't be used in a production environment.
+
+## `MYSQL_HOST`
+
+This environment variable is used to set the Django HOST variable for the default
+Database in the DATABASES array. It has a default value of `localhost`.
+
+## `MYSQL_PORT`
+This environment variable is used to set the Django PORT variable for the default
+Database in the DATABASES array. It has a default value of `3306`.
+
+#

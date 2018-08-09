@@ -10,12 +10,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*; \
     ln -s -f /usr/share/zoneinfo/America/New_York /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata; \
-    groupadd webster && \
-    useradd --home-dir /home/webdev \
-    --gid webster \
+    useradd --home-dir /home/django \
     --shell /bin/bash \
     --create-home \
-    webdev
+    django
 
 USER webdev
 
