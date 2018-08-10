@@ -1,5 +1,7 @@
 FROM python:3.7.0
 
+LABEL maintainer "Davis Templeton <davistempleton3@gmail.com>"
+
 ENV PYTHONUNBUFFERED 1
 
 ADD requirements.txt start-django.sh /
@@ -15,11 +17,11 @@ RUN apt-get update && \
     --create-home \
     django
 
-USER webdev
+USER django
 
 WORKDIR /website/
 
-COPY --chown=webdev:webster ./website/ /website/
+COPY --chown=django:django ./website/ /website/
 
 EXPOSE 8000
 
