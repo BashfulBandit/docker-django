@@ -36,5 +36,4 @@ EXPOSE 8000
 # Run docker-entrypoint.sh script.
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
-# Probably need to define a command, but for now, it will be in the ENTRYPOINT.
 CMD [ "gunicorn", "-b", "0.0.0.0:8000", "--access-logfile", "-", "--log-level", "debug", "--reload", "website.wsgi:application" ]

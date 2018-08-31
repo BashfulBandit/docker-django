@@ -11,22 +11,23 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from .utils import str2bool
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-%yq9r630$80(7e+)xnl7%h!m^g(mx)4(fk@xoilm4cvi1c#d^'
+SECRET_KEY = os.getenv('SECRET_KEY', '-%yq9r630$80(7e+)xnl7%h!m^g(mx)4(fk@xoilm4cvi1c#d^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = str2bool(os.getenv('DEBUG', 'True'))
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    os.getenv('HOST', '*'),
+]
 
 # Application definition
 
@@ -54,7 +55,9 @@ ROOT_URLCONF = 'website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,8 +78,12 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE':   os.getenv('SQL_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME':     os.getenv('MYSQL_DATABASE', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER':     os.getenv('MYSQL_USER', 'django'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'password'),
+        'HOST':     os.getenv('MYSQL_HOST', 'localhost'),
+        'PORT':     os.getenv('MYSQL_PORT', '3306'),
     }
 }
 
@@ -116,6 +123,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+print(SECRET_KEY)
+print(DEBUG)
+print(ALLOWED_HOSTS)
+print(DATABASES)
