@@ -5,6 +5,8 @@ LABEL maintainer "Davis Templeton <davistempleton3.com>"
 
 # Set Python output to stdout instead of stderr(I think?)
 ENV PYTHONBUFFERED 1
+
+# Set the name of the Django Project to be created.
 ENV DJANGO_PROJECT website
 
 # Add requirements.txt and docker-entrypoint.sh to /(root).
@@ -41,4 +43,5 @@ EXPOSE 8000
 # Run docker-entrypoint.sh script.
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
+# Define the command run after the ENTRYPOINT when the container is started.
 CMD gunicorn --config config.py $DJANGO_PROJECT.wsgi:application
