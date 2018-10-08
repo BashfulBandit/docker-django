@@ -13,7 +13,7 @@ ADD requirements.txt docker-entrypoint.sh /
 # Update apt-get packages, install some packages, and setup some configurations.
 RUN apt-get update && \
     apt-get upgrade -y; \
-    pip install -r requirements.txt; \
+    pip install -r requirements.txt --upgrade; \
     rm -rf /var/lib/apt/lists/*; \
     ln -s -f /usr/share/zoneinfo/America/New_York /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata; \
@@ -41,4 +41,4 @@ EXPOSE 8000
 # Run docker-entrypoint.sh script.
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
-CMD gunicorn -b 0.0.0.0:8000 --access-logfile - --log-level debug --reload $DJANGO_PROJECT.wsgi:application
+CMD gunicorn --config config.py $DJANGO_PROJECT.wsgi:application
