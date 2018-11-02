@@ -29,19 +29,18 @@ Then you can hit `http://localhost:8080` or `http://host-ip:8080` in your browse
 
 ## Building a Django website
 
-This image has the base Django project created by running
+This image has my base Django project created by running:
 ```console
 django-admin startproject \
 	--template https://github.com/BashfulBandit/django-project-template/archive/master.zip \
 	website
 ```
-with a few added configuration in the settings.py based on some environment variables.
 See the list of Environment Variables below. Since it has a specific settings.py
-file, it is recommended to use `docker cp some-django:/website .` to retrieve
+file, it is recommended to use `docker cp some-django:/home/django/website .` to retrieve
 the Django files from the image to develop with by mounting a host directory
 to your Docker container.
 
-Once you have a copy of the Docker container /website directory on your host, you
+Once you have a copy of the Docker container /home/django/website directory on your host, you
 can begin using the image with more complex configuration, but the basic would:
 
 ```console
