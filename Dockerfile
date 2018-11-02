@@ -12,7 +12,7 @@ ENV DJANGO_PROJECT=website
 # Add requirements.txt and docker-entrypoint.sh to /(root).
 ADD requirements.txt docker-entrypoint.sh /
 
-# Update apt-get packages, install some packages, and setup some configurations.
+# Update apt-get packages, install some pip packages, and setup some configurations.
 RUN apt-get update && \
     apt-get upgrade -y; \
     pip install -r requirements.txt --upgrade; \

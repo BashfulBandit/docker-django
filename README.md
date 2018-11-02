@@ -4,7 +4,10 @@ Docker image for a Django website using Gunicorn.
 
 # What is Django?
 
-Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.
+Django is a high-level Python Web framework that encourages rapid development and clean,
+pragmatic design. Built by experienced developers, it takes care of much of the hassle of
+Web development, so you can focus on writing your app without needing to reinvent the wheel.
+It’s free and open source.
 
 > <a href="https://en.wikipedia.org/wiki/Django_(web_framework)">Django Wikipedia</a>
 
@@ -26,7 +29,12 @@ Then you can hit `http://localhost:8080` or `http://host-ip:8080` in your browse
 
 ## Building a Django website
 
-This image has the base Django project created by running `django-admin startproject /website`
+This image has the base Django project created by running
+```console
+django-admin startproject \
+	--template https://github.com/BashfulBandit/django-project-template/archive/master.zip \
+	website
+```
 with a few added configuration in the settings.py based on some environment variables.
 See the list of Environment Variables below. Since it has a specific settings.py
 file, it is recommended to use `docker cp some-django:/website .` to retrieve
@@ -37,8 +45,14 @@ Once you have a copy of the Docker container /website directory on your host, yo
 can begin using the image with more complex configuration, but the basic would:
 
 ```console
-$ docker run --name some-django -v /path/to/host/website:/website -p 8080:8000 dtempleton/django
+$ docker run --name some-django -v /path/to/host/website:/home/django/website -p 8080:8000 dtempleton/django
 ```
+
+## Configuring Gunicorn
+
+The default Docker image starts using the command `gunicorn --config config.py website.wsgi:application`.
+This means if you mount your own config.py file at `/home/django/website/config.py` you can
+apply your own gunicorn configuration.
 
 # Environment Variables
 
@@ -112,5 +126,3 @@ This environment variable is used to set the Django PORT variable for the defaul
 Database in the DATABASES array. It has a default value of `3306`.
 
 https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-#
