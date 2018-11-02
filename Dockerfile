@@ -7,7 +7,7 @@ LABEL maintainer "Davis Templeton <davistempleton3.com>"
 ENV PYTHONBUFFERED 1
 
 # Set the name of the Django Project to be created.
-ENV DJANGO_PROJECT website
+ENV DJANGO_PROJECT=website
 
 # Add requirements.txt and docker-entrypoint.sh to /(root).
 ADD requirements.txt docker-entrypoint.sh /
@@ -40,8 +40,12 @@ WORKDIR /home/django/$DJANGO_PROJECT
 # Export port 8000 since that is the one gunicorn will use.
 EXPOSE 8000
 
+# Defining a healthcheck to curl the home page of Django app.
+HEALTHCHECK --interval=1m --timeout=10s \
+	CMD curl -f http://localhost:8000 || exit 1
+
 # Run docker-entrypoint.sh script.
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 # Define the command run after the ENTRYPOINT when the container is started.
-CMD gunicorn --config config.py $DJANGO_PROJECT.wsgi:application
+CMD gunicorn --config config.py ${DJANGO_PROJECT}.wsgi:application
