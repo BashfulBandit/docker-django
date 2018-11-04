@@ -15,7 +15,9 @@ ADD requirements.txt docker-entrypoint.sh /
 # Update apt-get packages, install some pip packages, and setup some configurations.
 RUN apt-get update && \
     apt-get upgrade -y; \
-    pip install -r requirements.txt --upgrade; \
+    pip install \
+		-r requirements.txt \
+		--upgrade; \
     rm -rf /var/lib/apt/lists/*; \
     ln -s -f /usr/share/zoneinfo/America/New_York /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata; \
