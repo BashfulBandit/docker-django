@@ -24,4 +24,4 @@ EXPOSE 8000
 COPY docker-entrypoint.sh wait-for-it.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]
+CMD [ "gunicorn", "--config", "config.py", "website.wsgi:application" ]
