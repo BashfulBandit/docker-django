@@ -1,5 +1,0 @@
-Django
-mysqlclient
-psycopg2
-cx_Oracle
-gunicorn

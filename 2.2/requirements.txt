@@ -1,0 +1,5 @@
+Django==2.2
+gunicorn
+mysqlclient
+cx_Oracle
+psycopg2
