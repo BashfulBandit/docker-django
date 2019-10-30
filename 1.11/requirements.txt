@@ -1,4 +1,4 @@
-Django==1.11.17
+Django==1.11.23
 gunicorn
 mysqlclient
 cx_Oracle
